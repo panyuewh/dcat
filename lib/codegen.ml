@@ -27,11 +27,58 @@ let rec codegen_expr = function
         | Add -> build_add e1_val e2_val "addtmp" builder
         | Mult -> build_mul e1_val e2_val "multmp" builder
         | Leq -> build_icmp Icmp.Sle e1_val e2_val "cmptmp" builder
-        | _ -> raise (Error "invalid binary operator")
       end
+  | Ast.Call (name, args) ->
+      (* Look up the name in the module table. *)
+    let callee =
+      match lookup_function name the_module with
+      | Some callee -> callee
+      | None -> raise (Error "unknown function referenced")
+    in
+    let params = params callee in
+
+    (* If argument mismatch error. *)
+    if Array.length params == Array.length args then () else
+      raise (Error "incorrect # arguments passed");
+    let args = Array.map codegen_expr args in
+    build_call callee args "calltmp" builder
+
   | Ast.Let (name, e1, e2) -> 
       let e1_val = codegen_expr e1 in  
       let _ = Hashtbl.add named_values name e1_val in
+      codegen_expr e2
+  | Ast.Def (name, ps, e1, e2) ->
+      let ints = Array.make (Array.length ps) int_type in
+      let ft = function_type int_type ints in
+      let f =
+        match lookup_function name the_module with
+        | None -> declare_function name ft the_module
+
+        (* If 'f' conflicted, there was already something named 'name'. If it
+         * has a body, don't allow redefinition or reextern. *)
+        | Some f ->
+            (* If 'f' already has a body, reject this. *)
+            if block_begin f <> At_end f then
+              raise (Error "redefinition of function");
+
+            (* If 'f' took a different number of arguments, reject. *)
+            if element_type (type_of f) <> ft then
+              raise (Error "redefinition of function with different # args");
+            f
+      in
+      (* Set names for all arguments. *)
+      Array.iteri (fun i a ->
+        let n = ps.(i) in
+        set_value_name n a;
+        Hashtbl.add named_values n a;
+      ) (params f);
+      Hashtbl.clear named_values;
+      (* Create a new basic block to start insertion into. *)
+      let bb = append_block context "entry" f in
+      position_at_end bb builder;
+      let ret_val = codegen_expr e1 in
+        (* Finish off the function. *)
+      let _ = build_ret ret_val builder in
       codegen_expr e2
   | Ast.If (e1, e2, e3) -> 
       let e1_val = codegen_expr e1 in

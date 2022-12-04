@@ -10,5 +10,7 @@ type expr =
   | Int of int
   | Bool of bool  
   | Binop of bop * expr * expr
+  | Call of string * expr array
   | Let of string * expr * expr
+  | Def of string * string array * expr * expr
   | If of expr * expr * expr
