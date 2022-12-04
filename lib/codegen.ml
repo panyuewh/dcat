@@ -15,8 +15,8 @@ let bool_type = i1_type context
 
 let rec codegen_expr = function
   | Ast.Var name -> 
-       (try Hashtbl.find named_values name with
-         | Not_found -> raise (Error "unknown variable name"))
+      (try Hashtbl.find named_values name with
+      | Not_found -> raise (Error "unknown variable name"))
   | Ast.Int i -> const_int int_type i
   | Ast.Bool b -> const_int bool_type (Bool.to_int b)
   | Ast.Binop (op, e1, e2) -> 
@@ -50,7 +50,7 @@ let rec codegen_expr = function
   | Ast.Def (name, ps, e1, e2) ->
       let ints = Array.make (Array.length ps) int_type in
       let ft = function_type int_type ints in
-      let f =
+      let func =
         match lookup_function name the_module with
         | None -> declare_function name ft the_module
 
@@ -71,10 +71,9 @@ let rec codegen_expr = function
         let n = ps.(i) in
         set_value_name n a;
         Hashtbl.add named_values n a;
-      ) (params f);
-      Hashtbl.clear named_values;
+      ) (params func);
       (* Create a new basic block to start insertion into. *)
-      let bb = append_block context "entry" f in
+      let bb = append_block context "entry" func in
       position_at_end bb builder;
       let ret_val = codegen_expr e1 in
         (* Finish off the function. *)
