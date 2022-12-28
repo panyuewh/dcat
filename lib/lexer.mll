@@ -26,6 +26,7 @@ rule read =
   | "then" { THEN }
   | "else" { ELSE }
   | "def" { DEFINE }
+  | ";" {END}
   | id { ID (Lexing.lexeme lexbuf) }
   | int { INT (int_of_string (Lexing.lexeme lexbuf)) }
   | eof { EOF }

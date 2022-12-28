@@ -1,4 +1,4 @@
 (executable
  (public_name dcat)
- (name main)
+ (name toplevel)
  (libraries interp))

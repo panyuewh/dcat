@@ -1,6 +1,13 @@
 (library
  (name interp)
- (libraries llvm))
+ (libraries 
+  llvm 
+  llvm.analysis
+  llvm.executionengine
+  llvm.target
+  llvm.scalar_opts 
+  ctypes 
+  ctypes.foreign))
 
 (menhir
  (modules parser))
