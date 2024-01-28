@@ -72,6 +72,7 @@ let rec typeof ctx = function
   | Let (x, e1, e2) -> typeof_let ctx x e1 e2
   | Binop (bop, e1, e2) -> typeof_bop ctx bop e1 e2
   | If (e1, e2, e3) -> typeof_if ctx e1 e2 e3
+  | _ -> raise (Failure "TODO")
 
 (** Helper function for [typeof]. *)
 and typeof_let ctx x e1 e2 = 
@@ -107,6 +108,7 @@ let typecheck e =
 let is_value : expr -> bool = function
   | Int _ | Bool _ -> true
   | Var _ | Let _ | Binop _ | If _ -> false
+  | _ -> raise (Failure "TODO")
 
 (** [subst e v x] is [e] with [v] substituted for [x], that
     is, [e{v/x}]. *)
@@ -122,6 +124,7 @@ let rec subst e v x = match e with
     else Let (y, e1', subst e2 v x)
   | If (e1, e2, e3) -> 
     If (subst e1 v x, subst e2 v x, subst e3 v x)
+  | _ -> raise (Failure "TODO")
 
 (** [step] is the [-->] relation, that is, a single step of 
     evaluation. *)
@@ -139,6 +142,7 @@ let rec step : expr -> expr = function
   | If (Bool false, _, e3) -> e3
   | If (Int _, _, _) -> failwith if_guard_err
   | If (e1, e2, e3) -> If (step e1, e2, e3)
+  | _ -> raise (Failure "TODO")
 
 (** [step_bop bop v1 v2] implements the primitive operation
     [v1 bop v2].  Requires: [v1] and [v2] are both values. *)
@@ -168,6 +172,7 @@ let rec eval_big (e : expr) : expr = match e with
   | Binop (bop, e1, e2) -> eval_bop bop e1 e2
   | Let (x, e1, e2) -> subst e2 (eval_big e1) x |> eval_big
   | If (e1, e2, e3) -> eval_if e1 e2 e3
+  | _ -> raise (Failure "TODO")
 
 (** [eval_bop bop e1 e2] is the [e] such that [e1 bop e2 ==> e]. *)
 and eval_bop bop e1 e2 = match bop, eval_big e1, eval_big e2 with

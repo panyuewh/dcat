@@ -1,9 +1,9 @@
-# dune build
+# dune exec dcat
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Workspace root: /home/py/fundev/dcat
 # Auto-detected concurrency: 8
-$ /usr/bin/ocamlc.opt -config > /tmp/dune_7c2750_output
+$ /usr/bin/ocamlc.opt -config > /tmp/dune_95f694_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -38,37 +38,80 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dune_7c2750_output
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
-#      { version = "4.08.1"
+#      { version = "4.13.1"
 #      ; standard_library_default = "/usr/lib/ocaml"
 #      ; standard_library = "/usr/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
 #      ; c_compiler = "x86_64-linux-gnu-gcc"
-#      ; ocamlc_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-fPIC" ]
-#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
-#      ; ocamlopt_cflags = [ "-O2"; "-fno-strict-aliasing"; "-fwrapv" ]
-#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64"; "-D_REENTRANT" ]
+#      ; ocamlc_cflags =
+#          [ "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-pthread"
+#          ; "-fPIC"
+#          ; "-g"
+#          ; "-O2"
+#          ; "-ffile-prefix-map=/build/ocaml-SC7b9w/ocaml-4.13.1=."
+#          ; "-fstack-protector-strong"
+#          ; "-Wformat"
+#          ; "-Werror=format-security"
+#          ]
+#      ; ocamlc_cppflags =
+#          [ "-D_FILE_OFFSET_BITS=64"; "-Wdate-time"; "-D_FORTIFY_SOURCE=2" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-pthread"
+#          ; "-fPIC"
+#          ; "-g"
+#          ; "-O2"
+#          ; "-ffile-prefix-map=/build/ocaml-SC7b9w/ocaml-4.13.1=."
+#          ; "-fstack-protector-strong"
+#          ; "-Wformat"
+#          ; "-Werror=format-security"
+#          ]
+#      ; ocamlopt_cppflags =
+#          [ "-D_FILE_OFFSET_BITS=64"; "-Wdate-time"; "-D_FORTIFY_SOURCE=2" ]
 #      ; bytecomp_c_compiler =
 #          [ "x86_64-linux-gnu-gcc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
+#          ; "-pthread"
 #          ; "-fPIC"
+#          ; "-g"
+#          ; "-O2"
+#          ; "-ffile-prefix-map=/build/ocaml-SC7b9w/ocaml-4.13.1=."
+#          ; "-fstack-protector-strong"
+#          ; "-Wformat"
+#          ; "-Werror=format-security"
 #          ; "-D_FILE_OFFSET_BITS=64"
-#          ; "-D_REENTRANT"
+#          ; "-Wdate-time"
+#          ; "-D_FORTIFY_SOURCE=2"
 #          ]
-#      ; bytecomp_c_libraries = [ "-lm"; "-ldl"; "-lpthread" ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_c_compiler =
 #          [ "x86_64-linux-gnu-gcc"
 #          ; "-O2"
 #          ; "-fno-strict-aliasing"
 #          ; "-fwrapv"
+#          ; "-pthread"
+#          ; "-fPIC"
+#          ; "-g"
+#          ; "-O2"
+#          ; "-ffile-prefix-map=/build/ocaml-SC7b9w/ocaml-4.13.1=."
+#          ; "-fstack-protector-strong"
+#          ; "-Wformat"
+#          ; "-Werror=format-security"
 #          ; "-D_FILE_OFFSET_BITS=64"
-#          ; "-D_REENTRANT"
+#          ; "-Wdate-time"
+#          ; "-D_FORTIFY_SOURCE=2"
 #          ]
-#      ; native_c_libraries = [ "-lm"; "-ldl" ]
+#      ; native_c_libraries = [ "-lm" ]
 #      ; native_pack_linker = [ "x86_64-linux-gnu-ld"; "-r"; "-o" ]
-#      ; cc_profile = [ "-pg" ]
+#      ; cc_profile = []
 #      ; architecture = "amd64"
 #      ; model = "default"
 #      ; int_size = 63
@@ -87,25 +130,22 @@ $ /usr/bin/ocamlc.opt -config > /tmp/dune_7c2750_output
 #      ; systhread_supported = true
 #      ; host = "x86_64-pc-linux-gnu"
 #      ; target = "x86_64-pc-linux-gnu"
-#      ; profiling = true
+#      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
-#      ; safe_string = false
-#      ; exec_magic_number = "Caml1999X025"
-#      ; cmi_magic_number = "Caml1999I025"
-#      ; cmo_magic_number = "Caml1999O025"
-#      ; cma_magic_number = "Caml1999A025"
-#      ; cmx_magic_number = "Caml1999Y025"
-#      ; cmxa_magic_number = "Caml1999Z025"
-#      ; ast_impl_magic_number = "Caml1999M025"
-#      ; ast_intf_magic_number = "Caml1999N025"
-#      ; cmxs_magic_number = "Caml1999D025"
-#      ; cmt_magic_number = "Caml1999T025"
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X030"
+#      ; cmi_magic_number = "Caml1999I030"
+#      ; cmo_magic_number = "Caml1999O030"
+#      ; cma_magic_number = "Caml1999A030"
+#      ; cmx_magic_number = "Caml1999Y030"
+#      ; cmxa_magic_number = "Caml1999Z030"
+#      ; ast_impl_magic_number = "Caml1999M030"
+#      ; ast_intf_magic_number = "Caml1999N030"
+#      ; cmxs_magic_number = "Caml1999D030"
+#      ; cmt_magic_number = "Caml1999T030"
 #      ; natdynlink_supported = true
 #      ; supports_shared_libraries = true
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /usr/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -bin-annot -I test/.main.eobjs/byte -I /home/py/.opam/default/lib/ounit2 -I /home/py/.opam/default/lib/ounit2/advanced -I /home/py/.opam/default/lib/seq -I /home/py/.opam/default/lib/stdlib-shims -I lib/.interp.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
-$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /home/py/.opam/default/lib/ounit2 -I /home/py/.opam/default/lib/ounit2/advanced -I /home/py/.opam/default/lib/seq -I /home/py/.opam/default/lib/stdlib-shims -I lib/.interp.objs/byte -I lib/.interp.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
-$ (cd _build/default && /usr/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -g -o test/main.exe lib/interp.cmxa /usr/lib/ocaml/unix.cmxa -I /usr/lib/ocaml -I /usr/lib/ocaml /home/py/.opam/default/lib/stdlib-shims/stdlib_shims.cmxa /home/py/.opam/default/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/py/.opam/default/lib/ounit2/oUnit.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)

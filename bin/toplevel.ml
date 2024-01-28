@@ -64,7 +64,7 @@ let main () =
           (if Char.equal str.[n-1] ';' then
             (* Run the main "interpreter loop" now. *)
             let s = String.concat " " !acc in 
-            anonymous_func_count := !anonymous_func_count + 1 ;
+            (match anonymous_func_count with | { contents } -> _) := !anonymous_func_count + 1 ;
             loop s !anonymous_func_count;
             acc := []
           else

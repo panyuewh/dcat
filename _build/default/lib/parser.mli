@@ -17,7 +17,10 @@ type token =
   | FALSE
   | EQUALS
   | EOF
+  | END
   | ELSE
+  | DEFINE
+  | COMMA
 
 (* This exception is raised by the monolithic API functions. *)
 

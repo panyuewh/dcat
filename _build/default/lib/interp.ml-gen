@@ -3,6 +3,9 @@
 (** @canonical Interp.Ast *)
 module Ast = Interp__Ast
 
+(** @canonical Interp.Codegen *)
+module Codegen = Interp__Codegen
+
 (** @canonical Interp.Lexer *)
 module Lexer = Interp__Lexer
 

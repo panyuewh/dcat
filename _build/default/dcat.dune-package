@@ -1,4 +1,4 @@
 (lang dune 3.6)
 (name dcat)
-(sections (lib .) (bin ../../bin))
-(files (lib (META dune-package opam)) (bin (dcat)))
+(sections (lib .) (bin ../../bin) (doc ../../doc/dcat))
+(files (lib (META dune-package opam)) (bin (dcat)) (doc (README.md)))

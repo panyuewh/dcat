@@ -6,3 +6,6 @@ lib: [
 bin: [
   "_build/install/default/bin/dcat"
 ]
+doc: [
+  "_build/install/default/doc/dcat/README.md"
+]
